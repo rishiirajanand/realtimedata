@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Data Display</title>
+</head>
+<body>
+  <h1>Real-time Data Display</h1>
+  <div id="dataDisplay"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script>
+    const socket = io.connect('http://localhost:3001');
+
+    socket.on('dataStream', (dataStream) => {
+      const dataDisplay = document.getElementById('dataDisplay');
+      const messages = dataStream.split('|');
+
+      messages.forEach((message) => {
+        const payload = JSON.parse(decryptMessage(message)); // Function to decrypt the message
+        dataDisplay.innerHTML += `<p>${JSON.stringify(payload)}</p>`;
+      });
+    });
+
+    function decryptMessage(message) {
+      // Use the same decryption logic as in the emitter_listener.js file
+      const decipher = crypto.createDecipher('aes-256-ctr', 'mySecureSecretKey123!@#'); // Replace with the same secret key used for encryption
+      let decryptedMessage = decipher.update(message, 'hex', 'utf8');
+      decryptedMessage += decipher.final('utf8');
+      return decryptedMessage;
+    }
+  </script>
+</body>
+</html>

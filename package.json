@@ -1,0 +1,18 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rish raj anand",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.0.1"
+  }
+}
